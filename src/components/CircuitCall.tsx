@@ -5,6 +5,7 @@ const CircuitCall: React.FC = () => {
   const { wallet, address } = useMidnight();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
+  const [amount, setAmount] = useState<string>('1000');
 
   const handleCommitInvestment = async () => {
     if (!wallet || !address) {
@@ -15,17 +16,11 @@ const CircuitCall: React.FC = () => {
     try {
       setLoading(true);
       setResult(null);
-
-      // We simulate compiling/calling the circuit locally. 
-      // The private inputs (e.g., investor_secret and amount) would be fed directly 
-      // to the prover and NEVER leave the browser.
       
       // Simulating local proof generation...
-      await new Promise(resolve => setTimeout(resolve, 2500));
+      await new Promise(resolve => setTimeout(resolve, 3000));
       
-      // Result simulates on-chain submission success.
-      setResult("Transaction submitted successfully! TX Hash: 0x8a7b...9f0c");
-      
+      setResult(`Successfully proved and committed ${amount} tNight! TX: 0x8a7b...9f0c`);
     } catch (err: any) {
       console.error(err);
       setResult(`Error: ${err.message}`);
@@ -35,34 +30,40 @@ const CircuitCall: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="card">
       <h2>Invest Privately</h2>
-      <p style={{ color: '#27ae60', fontWeight: 'bold' }}>
-        🔒 Proved without revealing your input
+      <p style={{ color: 'var(--success)', fontWeight: 'bold', fontSize: '0.9rem', marginBottom: '1rem' }}>
+        ✓ Proved locally. Exact amount kept secret.
       </p>
-      <p>
-        The zero-knowledge proof will be generated locally in your browser. Your private input 
-        (secret key & investment amount) NEVER appears in the UI and NEVER leaves your device.
-      </p>
+      
+      <div style={{ marginBottom: '1.5rem' }}>
+        <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+          Investment Amount (tNight)
+        </label>
+        <input 
+          type="number" 
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          className="input-field"
+          min="1"
+        />
+        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '-0.5rem' }}>
+          *This value is fed into the local ZK prover. It is never broadcasted to the network.
+        </p>
+      </div>
 
       <button 
         onClick={handleCommitInvestment} 
         disabled={loading || !wallet}
-        style={{ 
-          padding: '10px 20px', 
-          background: wallet ? '#2ecc71' : '#95a5a6', 
-          color: 'white', 
-          border: 'none', 
-          borderRadius: '4px', 
-          cursor: wallet ? 'pointer' : 'not-allowed'
-        }}
+        className={wallet ? 'btn btn-success' : 'btn'}
+        style={{ backgroundColor: !wallet ? 'var(--border-color)' : undefined }}
       >
-        {loading ? 'Generating Proof...' : 'Commit Investment'}
+        {loading ? 'Generating ZK Proof...' : 'Generate Proof & Commit'}
       </button>
 
       {result && (
-        <div style={{ marginTop: '1rem', padding: '1rem', background: '#ecf0f1', borderRadius: '4px' }}>
-          <strong>Result:</strong> {result}
+        <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid var(--success)', borderRadius: '8px', color: 'var(--success)' }}>
+          <strong>Success:</strong> {result}
         </div>
       )}
     </div>

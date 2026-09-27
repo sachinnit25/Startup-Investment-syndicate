@@ -1,18 +1,25 @@
 import React from 'react';
 import WalletConnect from './components/WalletConnect';
 import CircuitCall from './components/CircuitCall';
+import SyndicateStats from './components/SyndicateStats';
 
 function App() {
   return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>Startup Investment Syndicate</h1>
-      <p>Invest privately. Proved without revealing your identity or exact input amount.</p>
+    <div className="container">
+      <div className="header">
+        <h1>Startup Investment Syndicate</h1>
+        <p>Invest privately on the Midnight Network.</p>
+        <p style={{ fontSize: '0.9rem', marginTop: '0.5rem', color: 'var(--success)' }}>
+          🔒 Your identity and amount remain completely hidden.
+        </p>
+      </div>
       
-      <div style={{ marginBottom: '2rem', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
+      <div style={{ marginBottom: '2rem' }}>
         <WalletConnect />
       </div>
 
-      <div style={{ padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
+      <div className="grid">
+        <SyndicateStats />
         <CircuitCall />
       </div>
     </div>

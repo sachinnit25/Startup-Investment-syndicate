@@ -5,25 +5,30 @@ const WalletConnect: React.FC = () => {
   const { address, connectWallet, disconnectWallet, error } = useMidnight();
 
   return (
-    <div>
-      <h2>Wallet Connection</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>
+        <h2 style={{ margin: 0, fontSize: '1.2rem' }}>Lace Wallet</h2>
+        {error && <p style={{ color: '#ef4444', margin: '0.5rem 0 0' }}>{error}</p>}
+        {address ? (
+          <p style={{ margin: '0.5rem 0 0', color: 'var(--text-muted)', fontFamily: 'monospace' }}>
+            {address.substring(0, 8)}...{address.substring(address.length - 8)}
+          </p>
+        ) : (
+          <p style={{ margin: '0.5rem 0 0', color: 'var(--text-muted)' }}>Not connected</p>
+        )}
+      </div>
       
-      {address ? (
-        <div>
-          <p><strong>Connected Address:</strong> {address}</p>
-          <button onClick={disconnectWallet} style={{ padding: '8px 16px', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+      <div>
+        {address ? (
+          <button onClick={disconnectWallet} className="btn" style={{ background: 'transparent', border: '1px solid var(--border-color)', color: 'white' }}>
             Disconnect
           </button>
-        </div>
-      ) : (
-        <div>
-          <p>Not connected to any wallet.</p>
-          <button onClick={connectWallet} style={{ padding: '8px 16px', background: '#3498db', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-            Connect Lace Wallet
+        ) : (
+          <button onClick={connectWallet} className="btn btn-primary">
+            Connect Wallet
           </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
