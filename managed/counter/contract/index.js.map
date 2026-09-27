@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "../../../contracts/",
+  "sources": ["counter.compact"],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EAAA;;;;;;;;;;MAkCA,AAAA,UAEC;;;;;cAFyB,MAAc;;;;;;;;;;;;;;;;;;yCAAd,MAAc;;;;;;;uEAAd,MAAc;;;OAEvC;MAWD,AAAA,iBAaC;;;;;cAZG,iBAA0B;cAC1B,mBAA2B;;;;;;;;;;;;;;;;;;;;;;;;;yCAD3B,iBAA0B,+BAC1B,mBAA2B;;;;;;;;;mDAD3B,iBAA0B;mDAC1B,mBAA2B;;;OAW9B;MAID,AAAA,UAKC;;;;;;;;;;;;;;;;;;;;;;OAAA;;;;;;;;;;;;GACA;EAtED;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IA2BA;;;;;;;;;yEAAwC;IACxC;;;;;;;;;yEAAuC;IACvC;;;;;;;;;yEAAoC;IACpC;;;;;;;;;yEAAoC;;;;;;;GAwCnC;EApCD,AAAA,aAEC,4BAFyB,MAAc;IACpC;;;;;;;2HAAuB,MAAI;;yEAAhB;;GACd;EAWD,AAAA,oBAaC;;uBAZG,iBAA0B;uBAC1B,mBAA2B;;UAG3B,KAAe;;;;;6CAAa;;;;;;;;;;;kHAAe;;qBAAG,mBAAiB;IAA/D;;;;;;;2HAAA,KAAe;;yEAAA;UACf,KAAc;;;;;6CAAc;;;;;;;;;;;kHAAc;;;IAA1C;;;;;;;2HAAA,KAAc;;yEAAA;QAGW,GAA8B;UAAjD,SAAiD,kCAA9B;;;;;;;;;;;0HAAe;uBAAf,GAA8B;;+CAAX;;;;;;;;;;;oHAAW;IACvD;;;;;;;2HAAwB,SAAO;;yEAAnB;WAEL,SAAO;GACjB;EAID,AAAA,aAKC;4BAJY;;;;;;;;;;;iGAAe;4BACf;;;;;;;;;;;iGAAc;4BACd;;;;;;;;;;;iGAAW;4BACX;;;;;;;;;;;iGAAY;;GACxB;;;;;;;;;;;;;;;;IA1CD;qCAAA;;;;;;;;;;;0GAAwC;KAAA;IACxC;qCAAA;;;;;;;;;;;0GAAuC;KAAA;IACvC;qCAAA;;;;;;;;;;;0GAAoC;KAAA;IACpC;qCAAA;;;;;;;;;;;0GAAoC;KAAA;;;;;;;;;;"
+}
