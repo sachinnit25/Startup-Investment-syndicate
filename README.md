@@ -2,7 +2,7 @@
 > A privacy-preserving startup investment syndicate on the Midnight network.
 
 ## Live Demo
-[PASTE LIVE URL AFTER DEPLOYING FRONTEND]
+https://startup-investment-syndicate.vercel.app
 
 ## Contract Address
 | Network  | Address                          |
