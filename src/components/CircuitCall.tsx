@@ -65,17 +65,20 @@ const CircuitCall: React.FC = () => {
       <button 
         onClick={handleCommitInvestment} 
         disabled={loading || !address}
-        className={address ? 'btn btn-success' : 'btn'}
+        className="btn"
         style={{ 
-          backgroundColor: !address ? '#334155' : undefined,
-          cursor: !address ? 'not-allowed' : 'pointer'
+          backgroundColor: address ? '#10b981' : '#334155',
+          color: address ? '#ffffff' : '#94a3b8',
+          cursor: address && !loading ? 'pointer' : 'not-allowed',
+          fontWeight: 600,
+          boxShadow: address ? '0 4px 14px 0 rgba(16, 185, 129, 0.39)' : 'none'
         }}
       >
         {loading 
-          ? 'Generating ZK Proof...' 
+          ? '⏳ Generating ZK Proof...' 
           : !address 
           ? 'Connect Wallet to Invest' 
-          : 'Generate Proof & Commit'}
+          : '⚡ Generate Proof & Commit'}
       </button>
 
       {result && (
