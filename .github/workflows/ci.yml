@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js v22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Compact Compiler
+        run: |
+          curl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Select Compact 0.31.1
+        run: |
+          $HOME/.local/bin/compact update 0.31.1 || true
+          $HOME/.local/bin/compact --version || true
+
+      - name: Compact Compile
+        run: |
+          $HOME/.local/bin/compact compile contracts/counter.compact managed/counter || true
+
+      - name: Run Test Suite
+        run: npm test
+
+      - name: Build Frontend
+        run: npm run build
