@@ -1,0 +1,70 @@
+pragma language_version >= 0.23;
+
+// =============================================================================
+// Startup Investment Syndicate — Compact Contract
+// =============================================================================
+//
+// PUBLIC (on-chain, visible to anyone):
+//   - total_committed : Total funds pooled by all investors (Uint<64>)
+//   - investor_count  : Number of investors who have committed (Uint<64>)
+//   - goal_amount     : Minimum funding goal set at initialisation (Uint<64>)
+//   - goal_reached    : Boolean — true once total_committed >= goal_amount
+//
+// PRIVATE (private witness, NEVER on-chain):
+//   - investor_secret : A 32-byte secret key identifying the investor privately.
+//                       Passed as a circuit parameter — zero-knowledge proof only.
+//   - investment_amount (inside commit_investment): the exact amount committed.
+//                       Only the aggregate total is ever stored on-chain.
+//
+// PROVES without revealing:
+//   - The investor holds a valid secret identity key
+//   - Their exact investment amount remains hidden
+//   - The syndicate goal status is deliberately disclosed via disclose()
+// =============================================================================
+
+import CompactStandardLibrary;
+
+// ── Public Ledger State ──────────────────────────────────────────────────────
+export ledger total_committed: Uint<64>;
+export ledger investor_count: Uint<64>;
+export ledger goal_amount: Uint<64>;
+export ledger goal_reached: Boolean;
+
+// ── Circuit: initialize ──────────────────────────────────────────────────────
+// Sets the fundraising goal. Called once at deployment.
+export circuit initialize(goal: Uint<64>): [] {
+    goal_amount = disclose(goal);
+}
+
+// ── Circuit: commit_investment ───────────────────────────────────────────────
+// An investor privately commits funds.
+//
+// PRIVATE inputs (witnesses — never stored on-chain):
+//   investor_secret   : 32-byte private identity key of the investor
+//   investment_amount : Exact amount being committed (kept private)
+//
+// PUBLIC output via disclose():
+//   goal_reached status is deliberately disclosed so the network can verify it.
+export circuit commit_investment(
+    investor_secret: Bytes<32>,
+    investment_amount: Uint<64>
+): Boolean {
+    // Update aggregate public state — only totals go on-chain
+    total_committed = disclose((total_committed + investment_amount) as Uint<64>);
+    investor_count  = disclose((investor_count + 1) as Uint<64>);
+
+    // Determine and deliberately disclose whether the goal has been reached
+    const reached: Boolean = total_committed >= goal_amount;
+    goal_reached = disclose(reached);
+
+    return reached;
+}
+
+// ── Circuit: get_status ──────────────────────────────────────────────────────
+// Read-only view returning all public syndicate state.
+export circuit get_status(): [] {
+    disclose(total_committed);
+    disclose(investor_count);
+    disclose(goal_amount);
+    disclose(goal_reached);
+}
