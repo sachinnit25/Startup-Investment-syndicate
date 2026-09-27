@@ -1,11 +1,10 @@
 import React from 'react';
+import { useMidnight } from '../hooks/useMidnight';
 
 const SyndicateStats: React.FC = () => {
-  // In a full implementation, these would be fetched from the contract state
+  const { totalCommitted, investorCount } = useMidnight();
   const target = 100000;
-  const current = 65000;
-  const investors = 12;
-  const percent = (current / target) * 100;
+  const percent = Math.min(100, Math.round((totalCommitted / target) * 100));
 
   return (
     <div className="card">
@@ -21,12 +20,14 @@ const SyndicateStats: React.FC = () => {
       
       <div className="stat-box">
         <span className="stat-label">Total Committed</span>
-        <span className="stat-value" style={{ color: 'var(--success)' }}>{current.toLocaleString()} tNight</span>
+        <span className="stat-value" style={{ color: 'var(--success)' }}>
+          {totalCommitted.toLocaleString()} tNight
+        </span>
       </div>
 
       <div className="stat-box" style={{ borderBottom: 'none' }}>
         <span className="stat-label">Active Investors</span>
-        <span className="stat-value">{investors}</span>
+        <span className="stat-value">{investorCount}</span>
       </div>
 
       <div style={{ marginTop: '1rem' }}>
