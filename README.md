@@ -44,4 +44,4 @@ npm run dev
 Open your browser to `http://localhost:3000` to interact with the dApp.
 
 ## Demo Video
-[PLACEHOLDER — I will add the link after recording]
+https://youtu.be/1uyMOp2bNT4
