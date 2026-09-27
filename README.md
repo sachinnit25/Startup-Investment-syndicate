@@ -101,4 +101,4 @@ The project features an automated continuous integration pipeline in [`.github/w
 See [PROPOSAL.md](PROPOSAL.md) for the product proposal, user personas, Midnight rationale, data model, and mainnet feasibility.
 
 ## Demo Video
-https://youtu.be/1uyMOp2bNT4
+https://youtu.be/xp4rRT89Anc
